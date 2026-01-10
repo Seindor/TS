@@ -1,0 +1,77 @@
+{
+  "name": "roblox-ts-game",
+  "globIgnorePaths": [
+    "**/package.json",
+    "**/tsconfig.json"
+  ],
+  "tree": {
+    "$className": "DataModel",
+    "$ignoreUnknownInstances": true,
+
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "TS": {
+        "$path": "out/ServerScriptService"
+      }
+    },
+
+    "ServerStorage": {
+      "$className": "ServerStorage",
+      "TS": {
+        "$path": "out/ServerStorage"
+      }
+    },
+
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "$ignoreUnknownInstances": true,
+
+      "rbxts_include": {
+        "$path": "include",
+        "node_modules": {
+          "$className": "Folder",
+          "@rbxts": {
+            "$path": "node_modules/@rbxts"
+          }
+        }
+      },
+
+      "TS": {
+        "$path": "out/ReplicatedStorage",
+        "$ignoreUnknownInstances": true
+      }
+    },
+
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "TS": {
+          "$path": "out/StarterPlayerScripts/StarterPlayerScripts"
+        }
+      },
+
+      "StarterCharacterScripts": {
+        "$className": "StarterCharacterScripts",
+        "TS": {
+          "$path": "out/StarterPlayerScripts/StarterCharacterScripts"
+        }
+      }
+    },
+
+    "HttpService": {
+      "$className": "HttpService",
+      "$properties": {
+        "HttpEnabled": true
+      }
+    },
+
+    "SoundService": {
+      "$className": "SoundService",
+      "$properties": {
+        "RespectFilteringEnabled": true
+      }
+    }
+  }
+}
