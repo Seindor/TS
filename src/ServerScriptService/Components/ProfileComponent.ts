@@ -14,12 +14,12 @@ declare global {
 	interface Replicas {
 		PlayerData: {
 			Data: IProfile;
-			Tags: {UserId: number}
-		}
+			Tags: { UserId: number };
+		};
 	}
 }
 
-const TOKEN = ReplicaServer.Token("PlayerData")
+const TOKEN = ReplicaServer.Token("PlayerData");
 
 export class ProfileComponent {
 	public Store: Store<IProfile> | undefined;
@@ -60,30 +60,27 @@ export class ProfileComponent {
 	}
 
 	public LoadReplica(_Player: Player) {
-
-		const profile = this.LoadProfile(_Player)
+		const profile = this.LoadProfile(_Player);
 
 		const replica = ReplicaServer.New({
 			Token: TOKEN,
 			Data: profile.Data as IProfile,
-			Tags: {UserId: _Player.UserId} as {UserId: number}
-			
+			Tags: { UserId: _Player.UserId } as { UserId: number },
 		});
 
 		if (!_Player.Character) {
 			_Player.CharacterAdded.Once((_Character) => {
-				replica.Subscribe(_Player)
-				replica.Replicate()
-			})
+				replica.Subscribe(_Player);
+				replica.Replicate();
+			});
 		} else {
-			replica.Subscribe(_Player)
-			replica.Replicate()
+			replica.Subscribe(_Player);
+			replica.Replicate();
 		}
 
 		//ПЕРЕПИШИ ПОТОМ: КОГДА КЛИЕНТ ЗАГРУЗИЛСЯ, ПУСТИ С НЕГО ИВЕНТ И ТОЛЬКО ПОТОМ ДЕЛАЙ ПОДПИСКУ
 
-		return {profile, replica}
-
+		return { profile, replica };
 	}
 
 	public CreateSlot(_Player: Player) {
@@ -99,7 +96,7 @@ export class ProfileComponent {
 
 		if (!Profile.Data.Slots[Profile.Data.Account.SlotCount]) {
 			Profile.Data.Slots[Profile.Data.Account.SlotCount] = CreateSlottemplate();
-			warn(`Created Slot ${Profile.Data.Account.SlotCount} for ${_Player.Name} / ${_Player.UserId}`)
+			warn(`Created Slot ${Profile.Data.Account.SlotCount} for ${_Player.Name} / ${_Player.UserId}`);
 			this.SelectSlot(_Player, Profile.Data.Account.SlotCount);
 		} else {
 			warn(`${_Player.Name} / ${_Player.UserId} Already have Slot on: ${Profile.Data.Account.SlotCount}.`);
