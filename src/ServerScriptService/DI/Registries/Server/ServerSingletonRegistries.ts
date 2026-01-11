@@ -1,6 +1,6 @@
 import { createToken } from "ReplicatedStorage/DI/Token";
 
-import { IPlayersService } from "ServerScriptService/ServerInterfaces/IServices/IPlayersService";
+import { IPlayersService } from "ServerStorage/ServerInterfaces/IServices/IPlayersService";
 
 export const ServerSingletonRegistries = {
 	PlayersService: createToken<IPlayersService>("PlayersService"),

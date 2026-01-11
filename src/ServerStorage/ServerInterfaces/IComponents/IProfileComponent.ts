@@ -6,8 +6,5 @@ export interface IProfileComponent {
 	LoadProfile(Player: Player): Profile<IProfile>;
 	CreateSlot(Player: Player): void;
 	SelectSlot(Player: Player, SlotNumber: number): void;
-	LoadReplica(Player: Player): {
-		profile: Profile<IProfile>;
-		replica: Replica;
-	};
+	LoadReplica(Player: Player): Replica;
 }

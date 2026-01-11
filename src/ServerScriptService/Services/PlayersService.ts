@@ -2,7 +2,7 @@ import { ServerRegistry } from "ServerScriptService/DI/ServerRegistry";
 import {
 	IPlayerComponent,
 	IPlayerComponentMethods,
-} from "ServerScriptService/ServerInterfaces/IComponents/IPlayerComponent";
+} from "ServerStorage/ServerInterfaces/IComponents/IPlayerComponent";
 
 export class PlayersService {
 	public static Inject = [ServerRegistry.Scoped.PlayerComponent];

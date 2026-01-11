@@ -8,10 +8,10 @@ import TableHelper from "ReplicatedStorage/Modules/Utilities/TableHelper";
 import { CreateProfileTemplate } from "ServerStorage/Templates/ProfileTemplate";
 import { CreateSlottemplate } from "ServerStorage/Templates/SlotTemplate";
 
-import { IProfile, SlotData } from "ServerScriptService/ServerInterfaces/IComponents/IProfile";
-import { ISessionComponent } from "ServerScriptService/ServerInterfaces/IComponents/ISessionComponent";
+import { IProfile, SlotData } from "ServerStorage/ServerInterfaces/IComponents/IProfile";
+import { ISessionComponent } from "ServerStorage/ServerInterfaces/IComponents/ISessionComponent";
 import { CreateSessionTemplate, SessionTemplate } from "ServerStorage/Templates/SessionTemplate";
-import { IReplicaData } from "ServerScriptService/ServerInterfaces/IComponents/IReplica";
+import { IReplicaData } from "ServerStorage/ServerInterfaces/IComponents/IReplica";
 
 declare global {
 	interface Replicas {

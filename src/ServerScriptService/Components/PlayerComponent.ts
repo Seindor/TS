@@ -1,9 +1,9 @@
-import type { ISessionComponent } from "ServerScriptService/ServerInterfaces/IComponents/ISessionComponent";
-import { IProfileComponent } from "ServerScriptService/ServerInterfaces/IComponents/IProfileComponent";
+import type { ISessionComponent } from "ServerStorage/ServerInterfaces/IComponents/ISessionComponent";
+import { IProfileComponent } from "ServerStorage/ServerInterfaces/IComponents/IProfileComponent";
 import { ServerRegistry } from "ServerScriptService/DI/ServerRegistry";
 import { SessionTemplate } from "ServerStorage/Templates/SessionTemplate";
 import { Profile } from "@rbxts/profile-store";
-import { IProfile } from "ServerScriptService/ServerInterfaces/IComponents/IProfile";
+import { IProfile } from "ServerStorage/ServerInterfaces/IComponents/IProfile";
 import { Replica } from "@rbxts/mad-replica";
 
 export class PlayerComponent {
@@ -28,7 +28,7 @@ export class PlayerComponent {
 	}
 
 	public CreatePlayer(player: Player) {
-		const { replica } = this.Modules.profileComponent.LoadReplica(player);
+		const replica = this.Modules.profileComponent.LoadReplica(player);
 
 		this.Data = {
 			Instance: player,

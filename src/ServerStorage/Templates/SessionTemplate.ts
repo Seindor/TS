@@ -1,6 +1,6 @@
 import TableHelper from "ReplicatedStorage/Modules/Utilities/TableHelper";
 
-import { ICharacterDataComponent } from "ServerScriptService/ServerInterfaces/IComponents/ICharacterDataComponent";
+import { ICharacterDataComponent } from "ServerStorage/ServerInterfaces/IComponents/ICharacterDataComponent";
 
 const SessionTemplate = {
 	Attributes: {
