@@ -1,35 +1,43 @@
-import type { ISessionComponent } from "ReplicatedStorage/Interfaces/IComponents/ISessionComponent";
-import { IProfileComponent } from "ReplicatedStorage/Interfaces/IComponents/IProfileComponent";
-import { Registry } from "ReplicatedStorage/DI/Registry";
-import { SessionTemplate } from "ReplicatedStorage/Templates/SessionTemplate";
+import type { ISessionComponent } from "ServerScriptService/ServerInterfaces/IComponents/ISessionComponent";
+import { IProfileComponent } from "ServerScriptService/ServerInterfaces/IComponents/IProfileComponent";
+import { ServerRegistry } from "ServerScriptService/DI/ServerRegistry";
+import { SessionTemplate } from "ServerStorage/Templates/SessionTemplate";
 import { Profile } from "@rbxts/profile-store";
-import { IProfile } from "ReplicatedStorage/Interfaces/IComponents/IProfile";
+import { IProfile } from "ServerScriptService/ServerInterfaces/IComponents/IProfile";
+import { Replica } from "@rbxts/mad-replica";
 
 export class PlayerComponent {
-	public static Inject = [Registry.Scoped.SessionComponent, Registry.Scoped.ProfileComponent] as const;
+	public static Inject = [ServerRegistry.Scoped.ProfileComponent] as const;
 
-	public Instance!: Player;
-	public Id!: string;
-	public Session!: SessionTemplate;
-	public Profile!: Profile<IProfile>;
+	public Modules!: {
+		profileComponent: IProfileComponent;
+	};
 
-	private readonly profileComponent!: IProfileComponent;
-	private readonly sessionComponent!: ISessionComponent;
+	public Data!: {
+		Instance: Player;
+		Id: string;
+		Session: SessionTemplate;
+		Profile: Profile<IProfile>;
+		Replica: Replica;
+	};
 
-	constructor(sessionComponent: ISessionComponent, profileComponent: IProfileComponent) {
-		this.sessionComponent = sessionComponent;
-		this.profileComponent = profileComponent;
+	constructor(profileComponent: IProfileComponent) {
+		this.Modules = {
+			profileComponent: profileComponent,
+		};
 	}
 
 	public CreatePlayer(player: Player) {
-		const { profile, replica } = this.profileComponent.LoadReplica(player);
+		const { replica } = this.Modules.profileComponent.LoadReplica(player);
 
-		return {
+		this.Data = {
 			Instance: player,
 			Id: tostring(player.UserId),
-			Session: this.sessionComponent.LoadSession(player),
-			Profile: profile,
+			Session: replica.Data.Session,
+			Profile: replica.Data.Profile,
 			Replica: replica,
 		};
+
+		return this.Data;
 	}
 }

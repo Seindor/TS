@@ -8,12 +8,15 @@ import TableHelper from "ReplicatedStorage/Modules/Utilities/TableHelper";
 import { CreateProfileTemplate } from "ServerStorage/Templates/ProfileTemplate";
 import { CreateSlottemplate } from "ServerStorage/Templates/SlotTemplate";
 
-import { IProfile, SlotData } from "ReplicatedStorage/Interfaces/IComponents/IProfile";
+import { IProfile, SlotData } from "ServerScriptService/ServerInterfaces/IComponents/IProfile";
+import { ISessionComponent } from "ServerScriptService/ServerInterfaces/IComponents/ISessionComponent";
+import { CreateSessionTemplate, SessionTemplate } from "ServerStorage/Templates/SessionTemplate";
+import { IReplicaData } from "ServerScriptService/ServerInterfaces/IComponents/IReplica";
 
 declare global {
 	interface Replicas {
 		PlayerData: {
-			Data: IProfile;
+			Data: IReplicaData;
 			Tags: { UserId: number };
 		};
 	}
@@ -64,7 +67,7 @@ export class ProfileComponent {
 
 		const replica = ReplicaServer.New({
 			Token: TOKEN,
-			Data: profile.Data as IProfile,
+			Data: { Profile: profile, Session: CreateSessionTemplate() } as IReplicaData,
 			Tags: { UserId: _Player.UserId } as { UserId: number },
 		});
 
@@ -80,7 +83,7 @@ export class ProfileComponent {
 
 		//ПЕРЕПИШИ ПОТОМ: КОГДА КЛИЕНТ ЗАГРУЗИЛСЯ, ПУСТИ С НЕГО ИВЕНТ И ТОЛЬКО ПОТОМ ДЕЛАЙ ПОДПИСКУ
 
-		return { profile, replica };
+		return replica;
 	}
 
 	public CreateSlot(_Player: Player) {

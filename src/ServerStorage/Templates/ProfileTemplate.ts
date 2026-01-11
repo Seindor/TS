@@ -1,5 +1,5 @@
 import TableHelper from "ReplicatedStorage/Modules/Utilities/TableHelper";
-import { IProfile } from "ReplicatedStorage/Interfaces/IComponents/IProfile";
+import { IProfile } from "ServerScriptService/ServerInterfaces/IComponents/IProfile";
 
 const ProfileTemplate = {
 	Account: {

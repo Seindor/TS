@@ -1,19 +1,27 @@
-import { Registry } from "ReplicatedStorage/DI/Registry";
-import { IPlayerComponent, IPlayerComponentMethods } from "ReplicatedStorage/Interfaces/IComponents/IPlayerComponent";
+import { ServerRegistry } from "ServerScriptService/DI/ServerRegistry";
+import {
+	IPlayerComponent,
+	IPlayerComponentMethods,
+} from "ServerScriptService/ServerInterfaces/IComponents/IPlayerComponent";
 
 export class PlayersService {
-	public static Inject = [Registry.Scoped.PlayerComponent];
+	public static Inject = [ServerRegistry.Scoped.PlayerComponent];
 
-	private readonly playerComponent!: IPlayerComponentMethods;
+	public Modules!: {
+		playerComponent: IPlayerComponentMethods;
+	};
+
 	public Players = new Map<string, IPlayerComponent>();
 
 	constructor(playerComponent: IPlayerComponentMethods) {
-		this.playerComponent = playerComponent;
+		this.Modules = {
+			playerComponent: playerComponent,
+		};
 	}
 
 	public Get(player: Player): IPlayerComponent {
 		if (!this.Players.has(tostring(player.UserId))) {
-			const Player = this.playerComponent.CreatePlayer(player);
+			const Player = this.Modules.playerComponent.CreatePlayer(player);
 			this.Players.set(Player.Id, Player);
 		}
 		return this.Players.get(tostring(player.UserId))!;

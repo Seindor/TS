@@ -1,13 +1,16 @@
-import { Registry } from "ReplicatedStorage/DI/Registry";
-import type { ISessionComponent } from "ReplicatedStorage/Interfaces/IComponents/ISessionComponent";
-import type { SessionTemplate } from "ReplicatedStorage/Templates/SessionTemplate";
+import { ServerRegistry } from "ServerScriptService/DI/ServerRegistry";
+import type { ISessionComponent } from "ServerScriptService/ServerInterfaces/IComponents/ISessionComponent";
+import type { SessionTemplate } from "ServerStorage/Templates/SessionTemplate";
 import type {
 	ICharacterDataComponent,
 	ICharacterDataComponentMethods,
-} from "ReplicatedStorage/Interfaces/IComponents/ICharacterDataComponent";
+} from "ServerScriptService/ServerInterfaces/IComponents/ICharacterDataComponent";
 
 export class SessionComponent implements ISessionComponent {
-	public static Inject = [Registry.Transient.SessionFactory, Registry.Scoped.CharacterDataComponent] as const;
+	public static Inject = [
+		ServerRegistry.Transient.SessionTemplate,
+		ServerRegistry.Scoped.CharacterDataComponent,
+	] as const;
 
 	private Modules: {
 		createSession: () => SessionTemplate;

@@ -1,8 +1,12 @@
 import { Container } from "ReplicatedStorage/DI/Container";
-import { ComponentsComposition } from "ServerScriptService/DI/Compositions/ComponentsComposition";
-import { SingletonComposition } from "./Compositions/SignletonComposition";
+
+import { Server_ScopedComposition } from "ServerScriptService/DI/Compositions/Server_ScopedComposition";
+import { Server_SingletonComposition } from "./Compositions/Server_SignletonComposition";
+import { Shared_SingletonComposition } from "ReplicatedStorage/DI/Compositions/Shared/Shared_SingletonComposition";
 
 export const CompositionRootServer = new Container();
 
-ComponentsComposition(CompositionRootServer);
-SingletonComposition(CompositionRootServer);
+Shared_SingletonComposition(CompositionRootServer);
+
+Server_ScopedComposition(CompositionRootServer);
+Server_SingletonComposition(CompositionRootServer);

@@ -1,10 +1,10 @@
 import TaskManager from "ReplicatedStorage/Modules/Utilities/TaskManager";
-import { Registry } from "ReplicatedStorage/DI/Registry";
+import { SharedRegistry } from "ReplicatedStorage/DI/SharedRegistry";
 import EventBus from "ReplicatedStorage/Modules/Utilities/EventBus";
 import { Players } from "@rbxts/services";
 
 export class CharacterDataComponent {
-	public static Inject = [Registry.Singleton.EventBus] as const;
+	public static Inject = [SharedRegistry.Singleton.EventBus] as const;
 
 	public Data: {
 		Character?: Model;
@@ -19,7 +19,12 @@ export class CharacterDataComponent {
 
 	constructor(bus: EventBus) {
 		this.Modules = { bus: bus };
-		this.Data = {};
+		this.Data = {
+			Character: undefined,
+			HumanoidRootPart: undefined,
+			Humanoid: undefined,
+			Animator: undefined,
+		};
 	}
 
 	public Load(Object: Player | Model) {
@@ -49,7 +54,8 @@ export class CharacterDataComponent {
 		this.Data.Character = Character;
 		this.Data.HumanoidRootPart =
 			(Character.FindFirstChild("HumanoidRootPart") as BasePart) || (Character.PrimaryPart as BasePart);
-		this.Data.Humanoid = Character.FindFirstChildOfClass("Humanoid");
+		this.Data.Humanoid =
+			Character.FindFirstChildOfClass("Humanoid") || (Character.WaitForChild("Humanoid") as Humanoid);
 		this.Data.Animator = this.Data.Humanoid?.FindFirstChildOfClass("Animator");
 
 		if (Players.GetPlayerFromCharacter(Character)) {

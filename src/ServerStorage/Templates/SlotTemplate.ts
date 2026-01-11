@@ -1,5 +1,5 @@
 import TableHelper from "ReplicatedStorage/Modules/Utilities/TableHelper";
-import { SlotData } from "../../ReplicatedStorage/Interfaces/IComponents/IProfile";
+import { SlotData } from "../../ServerScriptService/ServerInterfaces/IComponents/IProfile";
 
 const SlotTemplate = {
 	CreatedAt: os.clock(),
