@@ -18,7 +18,7 @@ export class Container {
 	private singletons = new Map<Token, unknown>();
 
 	public createClassFactory<T>(cls: InjectableClass<T>) {
-		return (scope: Scope) => scope.instantiate(cls);
+		return (scope: Scope) => scope.create(cls);
 	}
 
 	public bindSingleton<T>(token: Token<T>, factory: Factory<T>) {
@@ -46,6 +46,12 @@ export class Container {
 	public _setSingleton(token: Token, value: unknown) {
 		this.singletons.set(token, value);
 	}
+}
+
+type Resolved<T> = T extends Token<infer R> ? R : T extends object ? { [K in keyof T]: Resolved<T[K]> } : T;
+
+function isToken(x: unknown): x is Token<unknown> {
+	return (x as Token).__brand === "DI_TOKEN";
 }
 
 export class Scope {
@@ -78,7 +84,24 @@ export class Scope {
 		return binding.factory(this) as T;
 	}
 
-	public instantiate<T>(Class: InjectableClass<T>, manualArg?: unknown): T {
+	public resolveScope<T extends object>(registryScope: T): Resolved<T> {
+		const out = {} as Resolved<T>;
+		const dst = out as unknown as Record<string, unknown>;
+
+		for (const [k, v] of pairs(registryScope as unknown as object)) {
+			if (isToken(v)) {
+				dst[k as string] = this.resolve(v);
+			} else if (typeOf(v) === "table") {
+				dst[k as string] = this.resolveScope(v as object);
+			} else {
+				dst[k as string] = v;
+			}
+		}
+
+		return out;
+	}
+
+	public create<T>(Class: InjectableClass<T>, manualArg?: unknown): T {
 		const inject = Class.Inject ?? [];
 		const deps = inject.map((t) => this.resolve(t));
 

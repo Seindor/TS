@@ -85,4 +85,5 @@ export class TaskManager {
 	}
 }
 
+export type TaskManagerStatic = typeof TaskManager;
 export default TaskManager;

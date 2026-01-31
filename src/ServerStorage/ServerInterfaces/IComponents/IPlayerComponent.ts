@@ -1,6 +1,6 @@
 import { Profile } from "@rbxts/profile-store";
-import type { SessionTemplate } from "ServerStorage/Templates/SessionTemplate";
-import { IProfile } from "./IProfile";
+import type { SessionTemplate } from "ReplicatedStorage/SharedTemplates/SessionTemplate";
+import { IProfile } from "ReplicatedStorage/SharedInterfaces/IComponents/IProfile";
 import { Replica } from "@rbxts/mad-replica";
 
 export interface IPlayerComponent {

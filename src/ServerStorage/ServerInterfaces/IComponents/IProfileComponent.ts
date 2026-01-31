@@ -1,5 +1,5 @@
 import { Profile } from "@rbxts/profile-store";
-import { IProfile } from "./IProfile";
+import { IProfile } from "ReplicatedStorage/SharedInterfaces/IComponents/IProfile";
 import { Replica } from "@rbxts/mad-replica";
 
 export interface IProfileComponent {

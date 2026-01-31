@@ -1,8 +1,8 @@
 import { Packet, TypedPacket } from "./PacketLib";
 
 const Packets = {
-	TestScope: {
-		TestPacket: TypedPacket<[string]>("Test", Packet.Types.String),
+	Player: {
+		LoadReplica: TypedPacket<[string]>("LoadReplica"),
 	},
 } as const;
 

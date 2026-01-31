@@ -1,6 +1,6 @@
-import { ServerScopedRegistries } from "./Registries/Server/ServerScopedRegistries";
-import { ServerSingletonRegistries } from "./Registries/Server/ServerSingletonRegistries";
-import { ServerTransientRegistries } from "./Registries/Server/ServerTransientRegistries";
+import { ServerScopedRegistries } from "./Registries/Server/Server_ScopedRegistries";
+import { ServerSingletonRegistries } from "./Registries/Server/Server_SingletonRegistries";
+import { ServerTransientRegistries } from "./Registries/Server/Server_TransientRegistries";
 
 export const ServerRegistry = {
 	Scoped: ServerScopedRegistries,

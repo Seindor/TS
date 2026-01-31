@@ -78,7 +78,7 @@ class EventSlot {
 }
 
 const Cache = new Map<string, EventBus>();
-
+export type EventBusStatic = typeof EventBus;
 export default class EventBus {
 	private events = new Map<string, EventSlot>();
 

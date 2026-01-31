@@ -1,11 +1,8 @@
 import { ServerRegistry } from "ServerScriptService/DI/ServerRegistry";
-import {
-	IPlayerComponent,
-	IPlayerComponentMethods,
-} from "ServerStorage/ServerInterfaces/IComponents/IPlayerComponent";
+import { IPlayerComponent, IPlayerComponentMethods } from "ServerStorage/ServerInterfaces/IComponents/IPlayerComponent";
 
 export class PlayersService {
-	public static Inject = [ServerRegistry.Scoped.PlayerComponent];
+	public static Inject = [ServerRegistry.Scoped.Components.PlayerComponent];
 
 	public Modules!: {
 		playerComponent: IPlayerComponentMethods;
